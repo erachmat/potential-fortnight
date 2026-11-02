@@ -82,12 +82,12 @@ class SecondaryButton extends StatelessWidget {
         onTap: onPressed == null ? null : () { Feel.select(); onPressed!(); },
         child: Container(
           height: height,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           alignment: Alignment.center,
           decoration: BoxDecoration(borderRadius: NRadius.pillBr, border: Border.all(color: danger ? NColors.danger.withValues(alpha: .4) : NColors.line, width: 1.5)),
           child: Row(mainAxisSize: MainAxisSize.min, children: [
-            if (icon != null) ...[Icon(icon, size: 18, color: color), const SizedBox(width: 8)],
-            Text(label, style: NText.bodyStrong.copyWith(color: color)),
+            if (icon != null) ...[Icon(icon, size: 18, color: color), const SizedBox(width: 6)],
+            Flexible(child: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis, style: NText.bodyStrong.copyWith(color: color))),
           ]),
         ),
       ),
@@ -141,7 +141,7 @@ class _SlideToConfirmState extends State<SlideToConfirm> with SingleTickerProvid
                 onHorizontalDragEnd: _done
                     ? null
                     : (_) {
-                        if (progress > 0.85) {
+                        if (max > 0 && _dx / max > 0.85) {
                           Feel.medium();
                           setState(() { _dx = max; _done = true; });
                           widget.onConfirmed();
