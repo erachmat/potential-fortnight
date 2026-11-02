@@ -66,7 +66,7 @@ class Backend extends ChangeNotifier {
   // ================= seed / reset =================
   void _seed() {
     final t = now;
-    customers = [Seed.rina(), ...Seed.pendingCustomers().map((c) => c..submittedAt = t.subtract(const Duration(minutes: 25)))];
+    customers = [Seed.rina(), Seed.rafi(), ...Seed.pendingCustomers().map((c) => c..submittedAt = t.subtract(const Duration(minutes: 25)))];
     couriers = Seed.couriers();
     orders = [];
     offers = [];
@@ -89,7 +89,7 @@ class Backend extends ChangeNotifier {
       final qty = h.lines.fold<int>(0, (a, l) => a + l.qty).clamp(1, Pricing.maxQty);
       final ship = Pricing.shipping(qty);
       final o = Order(
-        id: h.id, customerId: 'rina', customerName: 'Mahasiswa', lines: h.lines,
+        id: h.id, customerId: 'mhs', customerName: 'Mahasiswa UNC', lines: h.lines,
         destination: Destination(building: buildings[h.at.minute % buildings.length], room: 'Lt. 2', landmark: '-'),
         subtotal: sub, shipping: ship, fee: Pricing.fee(sub), createdAt: h.at, status: OrderStatus.completed,
       )
@@ -105,6 +105,8 @@ class Backend extends ChangeNotifier {
     // order telat 45 menit milik Andi (masih diantar)
     final late = _makeOrder(
       id: 'NTP-0398',
+      customerId: 'rafi',
+      customerName: 'Rafi Hidayat',
       lines: const [OrderLine(productId: 'c1', name: 'Nasi Ayam Penyet', canteenId: 'C', price: 18000, qty: 2)],
       dest: Destination(building: buildings[3], room: 'Lt. 1, Ruang Baca', landmark: 'Dekat mesin fotokopi'),
       at: t.subtract(const Duration(minutes: 50)),
@@ -143,10 +145,10 @@ class Backend extends ChangeNotifier {
   /// Notifikasi terbaru (dipakai jembatan banner/notifikasi sistem).
   AppNotification? lastNotification;
 
-  Order _makeOrder({required String id, required List<OrderLine> lines, required Destination dest, required DateTime at}) {
+  Order _makeOrder({required String id, required String customerId, required String customerName, required List<OrderLine> lines, required Destination dest, required DateTime at}) {
     final cl = lines.map((l) => CartLine(product: Seed.products.firstWhere((p) => p.id == l.productId), qty: l.qty));
     final b = Pricing.breakdown(cl);
-    return Order(id: id, customerId: 'rina', customerName: 'Rina Ayu Lestari', lines: lines, destination: dest, subtotal: b.subtotal, shipping: b.shipping, fee: b.fee, createdAt: at);
+    return Order(id: id, customerId: customerId, customerName: customerName, lines: lines, destination: dest, subtotal: b.subtotal, shipping: b.shipping, fee: b.fee, createdAt: at);
   }
 
   // ================= auth / pendaftaran =================

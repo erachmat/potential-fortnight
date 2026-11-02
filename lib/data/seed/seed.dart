@@ -46,6 +46,9 @@ class Seed {
 
   static Customer rina() => Customer(id: 'rina', name: 'Rina Ayu Lestari', nim: '2023010145', email: 'rina.ayu@unc.ac.id', phone: '081234567890', status: AccountStatus.active, ktmAsset: 'rina');
 
+  /// Pemilik pesanan seed yang telat (NTP-0398).
+  static Customer rafi() => Customer(id: 'rafi', name: 'Rafi Hidayat', nim: '2022010077', email: 'rafi.h@unc.ac.id', phone: '081355577788', status: AccountStatus.active, ktmAsset: 'rafi');
+
   static List<Customer> pendingCustomers() => [
         Customer(id: 'dimas', name: 'Dimas Arya', nim: '2023010388', email: 'dimas.arya@unc.ac.id', phone: '081298765432', status: AccountStatus.pending, ktmAsset: 'dimas', submittedAt: null),
         Customer(id: 'putri', name: 'Putri Maharani', nim: '2023010412', email: 'putri.m@unc.ac.id', phone: '082111223344', status: AccountStatus.pending, ktmAsset: 'putri'),

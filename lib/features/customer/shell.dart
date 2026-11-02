@@ -57,7 +57,10 @@ class _CustomerShellState extends State<CustomerShell> {
 
 /// FAB keranjang. Anchor `cartKey` selalu ada supaya animasi terbang punya target.
 class CartFab extends StatelessWidget {
-  const CartFab({super.key});
+  const CartFab({super.key, this.anchorKey});
+
+  /// Key anchor untuk animasi terbang; default = anchor beranda.
+  final GlobalKey? anchorKey;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +68,7 @@ class CartFab extends StatelessWidget {
     final qty = b.cartQty;
     final price = b.cartPrice;
     return KeyedSubtree(
-      key: CustomerHost.of(context).cartKey,
+      key: anchorKey ?? CustomerHost.of(context).cart.shell,
       child: AnimatedScale(
         scale: qty > 0 ? 1 : 0,
         duration: const Duration(milliseconds: 300),
@@ -337,12 +340,33 @@ class ProductCard extends StatelessWidget {
 }
 
 /// C-07 — detail kantin.
-class CanteenScreen extends StatelessWidget {
+class CanteenScreen extends StatefulWidget {
   const CanteenScreen({super.key, required this.canteenId});
   final String canteenId;
 
   @override
+  State<CanteenScreen> createState() => _CanteenScreenState();
+}
+
+class _CanteenScreenState extends State<CanteenScreen> {
+  final _fabKey = GlobalKey(debugLabel: 'cart-canteen');
+  CartAnchors? _anchors;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _anchors ??= CustomerHost.of(context).cart..screen = _fabKey;
+  }
+
+  @override
+  void dispose() {
+    if (_anchors?.screen == _fabKey) _anchors!.screen = null;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final canteenId = widget.canteenId;
     final b = context.backend;
     final k = b.canteen(canteenId);
     final items = b.products.where((p) => p.canteenId == canteenId).toList();
@@ -365,7 +389,7 @@ class CanteenScreen extends StatelessWidget {
               child: _MenuRow(items[i]).animate(delay: (i * 40).ms).fadeIn().slideY(begin: .08),
             ),
         ]),
-        const Positioned(right: 20, bottom: 24, child: CartFab()),
+        Positioned(right: 20, bottom: 24, child: CartFab(anchorKey: _fabKey)),
       ]),
     );
   }

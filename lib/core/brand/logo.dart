@@ -15,7 +15,13 @@ class NitipMark extends StatelessWidget {
   final Color accent;
 
   @override
-  Widget build(BuildContext context) => CustomPaint(size: Size.square(size), painter: _MarkPainter(progress, ink, accent));
+  Widget build(BuildContext context) => Align(
+        // Align + widthFactor/heightFactor: ukuran logo tidak ikut melebar saat parent memberi lebar ketat (mis. ListView).
+        alignment: Alignment.topLeft,
+        widthFactor: 1,
+        heightFactor: 1,
+        child: SizedBox.square(dimension: size, child: CustomPaint(painter: _MarkPainter(progress, ink, accent))),
+      );
 }
 
 class _MarkPainter extends CustomPainter {

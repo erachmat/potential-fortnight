@@ -73,6 +73,7 @@ class _StageScreenState extends State<StageScreen> {
                 const Text('1·2·3 fokus   R reset   D panel demo   F layar penuh', style: TextStyle(fontFamily: 'PlusJakartaSans', color: Colors.white38, fontSize: 12)),
                 const Spacer(),
                 TextButton(onPressed: () => context.go('/roles'), child: const Text('Keluar', style: TextStyle(color: Colors.white70))),
+                const SizedBox(width: 84), // ruang untuk badge MODE DEMO
               ]),
             ),
             Expanded(

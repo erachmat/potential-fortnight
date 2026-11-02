@@ -177,7 +177,7 @@ class CampusMap extends StatelessWidget {
             Positioned.fill(child: RepaintBoundary(child: CustomPaint(painter: _MapPainter(route: route, done: routeDone)))),
             for (final b in buildings)
               Positioned(
-                left: px(b.mapX, b.mapY).dx - 30,
+                left: px(b.mapX, b.mapY).dx - 36,
                 top: px(b.mapX, b.mapY).dy - 22,
                 child: GestureDetector(
                   onTap: onBuildingTap == null ? null : () => onBuildingTap!(b),
@@ -222,7 +222,7 @@ class _BuildingTile extends StatelessWidget {
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeOutBack,
       transform: Matrix4.translationValues(0, selected ? -6 : 0, 0),
-      width: 60,
+      width: 72,
       height: 44,
       alignment: Alignment.center,
       decoration: BoxDecoration(

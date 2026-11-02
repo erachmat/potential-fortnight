@@ -6,12 +6,21 @@ import '../../demo/sound.dart';
 import '../../domain/models/models.dart';
 import 'auth_screens.dart';
 
+/// Target animasi terbang ke keranjang. Tiap layar yang punya FAB mendaftarkan key-nya sendiri
+/// (satu GlobalKey tidak boleh dipakai dua widget sekaligus); yang aktif = layar paling atas.
+class CartAnchors {
+  final GlobalKey shell = GlobalKey(debugLabel: 'cart-shell');
+  GlobalKey? screen;
+
+  GlobalKey get active => screen ?? shell;
+}
+
 /// Konteks bersama untuk aplikasi Customer.
 class CustomerHost extends InheritedWidget {
-  const CustomerHost({super.key, required this.onExit, required this.cartKey, required super.child});
+  const CustomerHost({super.key, required this.onExit, required this.cart, required super.child});
 
   final VoidCallback onExit;
-  final GlobalKey cartKey;
+  final CartAnchors cart;
 
   static CustomerHost of(BuildContext c) => c.dependOnInheritedWidgetOfExactType<CustomerHost>()!;
 
@@ -28,7 +37,7 @@ class CustomerApp extends StatefulWidget {
 }
 
 class _CustomerAppState extends State<CustomerApp> {
-  final _cartKey = GlobalKey();
+  final _cart = CartAnchors();
   final _nav = GlobalKey<NavigatorState>();
   int _epoch = 0;
 
@@ -36,7 +45,7 @@ class _CustomerAppState extends State<CustomerApp> {
   Widget build(BuildContext context) {
     return CustomerHost(
       onExit: () => setState(() { _epoch++; widget.onExit(); }),
-      cartKey: _cartKey,
+      cart: _cart,
       child: RoleBanner(
         role: AppRole.customer,
         child: Navigator(

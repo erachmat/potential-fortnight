@@ -228,7 +228,7 @@ class _Header extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(color: on ? NColors.brand : const Color(0xFF2B2623), borderRadius: NRadius.pillBr),
             child: Stack(alignment: Alignment.center, children: [
-              Center(child: Text(on ? 'ONLINE · Menunggu pesanan…' : 'OFFLINE · Geser untuk mulai', style: NText.bodyStrong.copyWith(color: on ? NColors.ink : Colors.white70))),
+              Center(child: Text(on ? (courier.busy ? 'ONLINE · Sedang mengantar' : 'ONLINE · Menunggu pesanan…') : 'OFFLINE · Ketuk untuk mulai', style: NText.bodyStrong.copyWith(color: on ? NColors.ink : Colors.white70))),
               AnimatedAlign(
                 duration: const Duration(milliseconds: 400),
                 curve: Curves.easeOutBack,

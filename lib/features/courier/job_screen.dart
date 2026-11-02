@@ -97,7 +97,7 @@ class _JobScreenState extends State<JobScreen> {
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Row(children: [const Icon(Icons.place_rounded, color: NColors.brandText), const SizedBox(width: 8), Expanded(child: Text(o.destination.building.name, style: NText.title))]),
                 const SizedBox(height: 4),
-                Text('${o.destination.room} · ${o.destination.landmark}', style: NText.body),
+                Text(o.destination.label, style: NText.body),
                 if (customer != null) ...[
                   const Divider(height: 24, color: NColors.line),
                   Row(children: [

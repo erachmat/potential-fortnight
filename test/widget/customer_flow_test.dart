@@ -4,6 +4,7 @@ import 'package:nitip/app/app.dart';
 import 'package:nitip/core/clock.dart';
 import 'package:nitip/data/backend.dart';
 import 'package:nitip/domain/models/models.dart';
+import 'package:nitip/features/customer/shell.dart';
 
 import 'test_utils.dart';
 
@@ -106,6 +107,36 @@ void main() {
     b.approveCustomer(b.me.id);
     await pumpFor(t, const Duration(seconds: 2));
     expect(find.text('Mulai Jajan'), findsOneWidget);
+
+    await t.pumpWidget(const SizedBox());
+    b.dispose();
+  });
+
+  testWidgets('customer: layar kantin menampilkan FAB keranjang (tanpa GlobalKey ganda)', (t) async {
+    phoneSize(t);
+    final b = Backend(clock: ManualClock(DateTime(2026, 11, 2, 13, 20)), autoTick: false);
+    await t.pumpWidget(NitipApp(backend: b));
+    await pumpFor(t, const Duration(seconds: 3));
+    await t.tap(find.text('Customer'));
+    await pumpFor(t, const Duration(seconds: 1));
+    await t.tap(find.text('Pakai akun demo'));
+    await t.pump();
+    await t.tap(find.widgetWithText(GestureDetector, 'Masuk').first);
+    await pumpFor(t, const Duration(seconds: 1));
+
+    await t.tap(find.text('Gorengan Bu Sri'));
+    await pumpFor(t, const Duration(seconds: 1));
+    expect(find.text('Pisang Goreng'), findsOneWidget);
+    await t.tap(find.byIcon(Icons.add_rounded).first); // tombol + pada Pisang Goreng
+    await pumpFor(t, const Duration(seconds: 1));
+    await t.tap(find.byIcon(Icons.add_rounded).first); // stepper + (qty 2)
+    await pumpFor(t, const Duration(seconds: 1));
+    expect(b.cartQty, 2);
+    // FAB di layar kantin (paling atas) harus terlihat: scale 1, bukan 0 / hilang karena key ganda
+    final fabScale = find.descendant(of: find.byType(CartFab), matching: find.byType(AnimatedScale)).first;
+    expect(t.widget<AnimatedScale>(fabScale).scale, 1);
+    expect(find.byType(CartFab), findsOneWidget); // yang terlihat = milik layar kantin (beranda offstage)
+    expect(t.takeException(), isNull);
 
     await t.pumpWidget(const SizedBox());
     b.dispose();

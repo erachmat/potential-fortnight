@@ -101,6 +101,9 @@ class Destination {
   final Building building;
   final String room;
   final String landmark;
+
+  /// "Lt. 3, R. 305 · Depan lab" (patokan kosong = '-' disembunyikan).
+  String get label => landmark == '-' || landmark.isEmpty ? room : '$room · $landmark';
 }
 
 enum OrderStatus { awaitingPayment, paid, searchingCourier, noCourierFound, courierAssigned, purchasing, delivering, delivered, completed, expired }

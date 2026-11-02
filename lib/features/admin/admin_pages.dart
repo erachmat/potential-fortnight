@@ -601,7 +601,7 @@ class _OrderRow extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '${o.destination.building.name}\n${o.destination.room} · ${o.destination.landmark}',
+                '${o.destination.building.name}\n${o.destination.label}',
                 style: NText.body,
               ),
               const SizedBox(height: 12),

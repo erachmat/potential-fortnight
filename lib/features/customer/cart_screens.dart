@@ -287,7 +287,7 @@ class SummaryScreen extends StatelessWidget {
             NCard(child: Row(children: [
               const CircleAvatar(backgroundColor: NColors.brandSoft, child: Icon(Icons.place_rounded, color: NColors.brandText)),
               const SizedBox(width: 12),
-              Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(dest.building.name, style: NText.title), Text('${dest.room} · ${dest.landmark}', style: NText.caption)])),
+              Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(dest.building.name, style: NText.title), Text(dest.label, style: NText.caption)])),
             ])),
             const SizedBox(height: 12),
             for (final e in byCanteen.entries) ...[

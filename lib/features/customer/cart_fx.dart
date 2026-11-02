@@ -29,6 +29,6 @@ bool addProductFx(BuildContext button, Product p) {
     return false;
   }
   Feel.light();
-  flyToCart(button, CustomerHost.of(button).cartKey, p.emoji);
+  flyToCart(button, CustomerHost.of(button).cart.active, p.emoji);
   return true;
 }
