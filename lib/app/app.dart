@@ -4,6 +4,7 @@ import '../core/design_system/theme.dart';
 import '../data/backend.dart';
 import '../data/scope.dart';
 import '../demo/demo_badge.dart';
+import '../demo/notifications/system_notifications.dart';
 import 'router.dart';
 
 class NitipApp extends StatefulWidget {
@@ -35,7 +36,7 @@ class _NitipAppState extends State<NitipApp> {
         debugShowCheckedModeBanner: false,
         theme: buildTheme(),
         routerConfig: _router,
-        builder: (context, child) => DemoOverlay(router: _router, child: child ?? const SizedBox()),
+        builder: (context, child) => SystemNotifyHook(child: DemoOverlay(router: _router, child: child ?? const SizedBox())),
       ),
     );
   }

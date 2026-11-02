@@ -42,17 +42,22 @@ class _MarkPainter extends CustomPainter {
       }
     }
 
-    final body = Path()..addRRect(RRect.fromRectAndRadius(Rect.fromLTWH(20 * k, 38 * k, 56 * k, 50 * k), Radius.circular(12 * k)));
+    // badan tas: trapesium melebar ke bawah (bukan kotak, supaya tidak terbaca sebagai gembok)
+    final body = Path()
+      ..moveTo(26 * k, 38 * k)
+      ..lineTo(70 * k, 38 * k)
+      ..lineTo(77 * k, 86 * k)
+      ..lineTo(19 * k, 86 * k)
+      ..close();
     drawPartial(body, _seg(0, .5));
 
-    // pegangan = huruf "n" (bounce kecil di akhir)
-    final bounce = t > .7 ? (1 - (t - .7) / .3) * 0.0 : 0.0;
+    // pegangan = huruf "n" yang menembus ke dalam badan tas
     final handle = Path()
-      ..moveTo(36 * k, 40 * k)
-      ..lineTo(36 * k, (28 + bounce) * k)
-      ..quadraticBezierTo(36 * k, 17 * k, 48 * k, 17 * k)
-      ..quadraticBezierTo(60 * k, 17 * k, 60 * k, 28 * k)
-      ..lineTo(60 * k, 40 * k);
+      ..moveTo(35 * k, 54 * k)
+      ..lineTo(35 * k, 32 * k)
+      ..quadraticBezierTo(35 * k, 14 * k, 48 * k, 14 * k)
+      ..quadraticBezierTo(61 * k, 14 * k, 61 * k, 32 * k)
+      ..lineTo(61 * k, 54 * k);
     drawPartial(handle, _seg(.4, .75));
 
     // gelembung chat (pop)

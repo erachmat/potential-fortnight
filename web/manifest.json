@@ -1,12 +1,11 @@
 {
-    "name": "nitip",
-    "short_name": "nitip",
+    "name": "Nitip — Prototype",
+    "short_name": "Nitip",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
-    "orientation": "portrait-primary",
+    "background_color": "#FF6A2B",
+    "theme_color": "#FF6A2B",
+    "description": "Prototype aplikasi pesan jajanan kantin kampus. Kuliah jalan, jajan datang.",
     "prefer_related_applications": false,
     "icons": [
         {
