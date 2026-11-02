@@ -24,7 +24,10 @@ Semua data palsu (in-memory), pembayaran disimulasikan. Tujuannya satu: klien bi
 - Target 60fps di Android kelas menengah. Animasi kontinu dibungkus RepaintBoundary; hindari blur besar.
 - Commit per fase (atau lebih kecil), push ke branch kerja yang ditentukan sesi. Jangan buat PR kecuali diminta.
 
-## Perintah (isi/perbarui setelah Fase 0)
+## Perintah
+
+Flutter di container ada di `/opt/sdk/flutter` (pasang ke PATH: `export PATH=/opt/sdk/flutter/bin:$PATH FLUTTER_SUPPRESS_ANALYTICS=true`).
+Bila hilang: unduh stable dari `storage.googleapis.com/flutter_infra_release` (github.com diblokir proxy).
 
 - Install deps: `flutter pub get`
 - Analisis: `flutter analyze`

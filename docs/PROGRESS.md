@@ -5,7 +5,7 @@ ditunda), dan path screenshot jika ada.
 
 | Fase | Status | Tanggal | Catatan |
 |---|---|---|---|
-| 0 — Fondasi | ⬜ | | |
+| 0 — Fondasi | ✅ | 2026-11-02 | Flutter 3.47.9 dipasang di /opt/sdk/flutter. Web release build OK (~55 dtk). APK **belum bisa dibuild lokal** (tanpa Android SDK) → dibuild di GitHub Actions (`.github/workflows/ci.yml`); CI belum terverifikasi karena belum ada PR/run. Font Plus Jakarta Sans dibundel (diunduh via Google Fonts API). |
 | 1 — Design system & primitif animasi | ⬜ | | |
 | 2 — Domain, data fake, simulasi | ⬜ | | |
 | 3 — Alur Customer | ⬜ | | |
@@ -23,3 +23,5 @@ ditunda), dan path screenshot jika ada.
 - [ ] (Opsional) Kirim foto jajanan sendiri jika foto stok kurang pas.
 
 ## Log
+
+- 2026-11-02 Fase 0: package §3 terpasang semua. github.com diblokir proxy; storage.googleapis.com & pub.dev bisa.
