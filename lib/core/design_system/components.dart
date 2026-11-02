@@ -346,7 +346,7 @@ class NCard extends StatelessWidget {
     final box = Container(
       padding: padding,
       decoration: BoxDecoration(color: color, borderRadius: NRadius.cardBr, boxShadow: border ? null : NShadow.card, border: border ? Border.all(color: NColors.line) : null),
-      child: child,
+      child: Material(type: MaterialType.transparency, child: child),
     );
     if (onTap == null) return box;
     return GestureDetector(onTap: () { Feel.select(); onTap!(); }, child: box);

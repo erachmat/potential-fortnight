@@ -45,6 +45,7 @@ class Backend extends ChangeNotifier {
   late List<ActivityItem> activity;
   final List<CartLine> cart = [];
   Destination? lastDestination;
+  Building? preferredBuilding;
 
   final canteens = Seed.canteens;
   final products = Seed.products;
@@ -75,9 +76,11 @@ class Backend extends ChangeNotifier {
     activity = [];
     cart.clear();
     lastDestination = null;
+    preferredBuilding = null;
     customerId = 'rina';
     courierId = 'sari';
     autoPilotCourierId = null;
+    lastNotification = null;
     offerTimeout = const Duration(seconds: 15);
     _orderSeq = 412;
 
@@ -122,6 +125,9 @@ class Backend extends ChangeNotifier {
     if (clock is SimClock) (clock as SimClock).reset(_simStart());
     _seed();
   }
+
+  /// Memberi tahu UI bahwa data berubah (dipakai Panel Demo).
+  void refresh() => notifyListeners();
 
   // ================= util =================
   void _log(String text) {

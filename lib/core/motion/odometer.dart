@@ -68,8 +68,10 @@ class _Slot extends StatelessWidget {
     if (!isDigit) return Text(char, style: style);
     final h = (style.fontSize ?? 16) * (style.height ?? 1.2);
     final target = int.parse(char);
+    final tp = TextPainter(text: TextSpan(text: '0', style: style), textDirection: TextDirection.ltr)..layout();
     return ClipRect(
       child: SizedBox(
+        width: tp.width,
         height: h,
         child: TweenAnimationBuilder<double>(
           tween: Tween(end: target.toDouble()),
