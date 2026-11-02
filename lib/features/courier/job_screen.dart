@@ -123,7 +123,10 @@ class _JobScreenState extends State<JobScreen> {
             padding: const EdgeInsets.fromLTRB(NSpace.gutter, 8, NSpace.gutter, 12),
             child: delivering
                 ? SlideToConfirm(label: 'Geser kalau sudah diserahkan', onConfirmed: () => b.deliver(o.id))
-                : const PrimaryButton(label: 'Selesaikan belanja di semua kantin', onPressed: null),
+                : const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: Text('Centang tiap item, lalu tekan "Selesai belanja" di setiap kantin. Setelah semua selesai, kamu bisa mengantar.', style: NText.caption, textAlign: TextAlign.center),
+                  ),
           ),
         ),
       ]),

@@ -22,6 +22,23 @@ Satu codebase menghasilkan:
 
 Naskah presentasi lengkap (±12 menit): [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md).
 
+## Cuplikan (Mode Panggung, hasil QA di browser)
+
+| | |
+|---|---|
+| ![QRIS](docs/screenshots/03-qris.png) | ![Cari kurir](docs/screenshots/04-cari-kurir-radar.png) |
+| QRIS dinamis Rp48.800 | Radar cari kurir; Admin live |
+| ![Order masuk](docs/screenshots/05-order-masuk-kurir.png) | ![Validasi](docs/screenshots/08-admin-validasi-ktm.png) |
+| Budi timeout → order masuk ke Sari | Validasi KTM (NIM tidak cocok ditandai merah) |
+
+Semua screenshot: [`docs/screenshots/`](docs/screenshots/).
+
+## Mengambil APK
+
+- **Dari CI:** GitHub Actions → workflow *CI* → artifact `nitip-apk` (`app-release.apk`, ditandatangani debug key — cukup untuk sideload/demo).
+- **Build lokal:** `flutter build apk --release` → `build/app/outputs/flutter-apk/app-release.apk`.
+- Aktifkan "Install dari sumber tidak dikenal" di HP, lalu buka file APK. **Belum diuji di perangkat nyata** — lihat `docs/PROGRESS.md`.
+
 ## Yang diperagakan (sesuai brief)
 
 - Daftar + upload KTM → admin validasi (KTM berdampingan dengan data, kaca pembesar) → notifikasi akun aktif

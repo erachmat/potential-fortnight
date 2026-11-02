@@ -35,3 +35,18 @@ Bila hilang: unduh stable dari `storage.googleapis.com/flutter_infra_release` (g
 - Jalankan web: `flutter run -d web-server --web-port 8080`
 - Build APK: `flutter build apk --release`
 - Build web: `flutter build web --release`
+
+## Catatan lingkungan (cloud container) — hasil pengalaman
+
+- Flutter: `/opt/sdk/flutter` · Android SDK: `/opt/android` (`ANDROID_HOME=/opt/android`, cmdline-tools + platform 36 + build-tools 36.0.0) · Java 21.
+  `export ANDROID_HOME=/opt/android ANDROID_SDK_ROOT=/opt/android PATH=/opt/sdk/flutter/bin:/opt/android/cmdline-tools/latest/bin:$PATH FLUTTER_SUPPRESS_ANALYTICS=true`
+- **Build APK sering gagal dengan HTTP 429 dari Maven Central** (proxy bersama). Itu sementara: ulangi dengan jeda ~45 dtk dan
+  `GRADLE_OPTS="-Dorg.gradle.workers.max=2 -Dorg.gradle.parallel=false"`; cache Gradle membuat percobaan berikutnya makin maju.
+  Jangan `pkill -f` dengan pola yang juga cocok dengan perintah shell sendiri (shell ikut mati).
+- Jangan sunting `lib/` atau `android/` saat build APK sedang jalan.
+- `dart fix --apply` bisa menambah `const` sehingga pencarian string `replace` berikutnya **diam-diam tidak cocok** — selalu verifikasi
+  (`grep`) bahwa suntingan skrip benar-benar terterap.
+- QA visual: `flutter build web --release`, sajikan `build/web` dengan fallback SPA, lalu Playwright (Chromium sudah ada). Flutter web
+  merender ke canvas: gunakan klik piksel nyata dan baca screenshot. Widget test **tidak** menangkap bug tata letak lintas-layar
+  (mis. `GlobalKey` ganda, CustomPaint melebar) — selalu lihat screenshot untuk perubahan UI.
+- Test widget memuat font asli lewat `test/widget/test_utils.dart` (`loadAppFonts`) supaya deteksi overflow valid.
